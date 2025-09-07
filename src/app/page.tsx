@@ -1,103 +1,188 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {/* Hero Section */}
+      <section className="grid md:grid-cols-2 items-center gap-12 py-20 px-6 bg-gradient-to-r from-white via-blue-50 to-white">
+        {/* Left side: text */}
+        <div className="space-y-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+            Your Home, Perfectly Fixed — in Darbhanga
+          </h1>
+          <p className="text-lg text-gray-700">
+            Home Cleaning • Bathroom/Kitchen Cleaning • Water & Septic Tank
+            Cleaning • Plumbing • Electrical Appliance Repairs
+          </p>
+          <div className="flex gap-4">
+            <Link
+              href="/book"
+              className="rounded-lg bg-blue-600 px-6 py-3 text-white font-medium hover:bg-blue-700 shadow"
+            >
+              Book Now
+            </Link>
+            <a
+              href="tel:+919709870726"
+              className="rounded-lg border border-blue-600 text-blue-600 px-6 py-3 font-medium hover:bg-blue-50 shadow-sm"
+            >
+              Call Us
+            </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+
+        {/* Right side: house image */}
+        <div className="flex justify-center md:justify-end">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/house-clean.jpg" // ✅ put house-clean.jpg inside /public
+            alt="Clean Indian Home"
+            width={500}
+            height={400}
+            priority
+            className="rounded-xl shadow-lg"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 bg-white px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10">
+            Why Choose <span className="text-[#1976d2]">Grih</span>
+            <span className="text-[#e53935]">Fix</span>?
+          </h2>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {/* Card 1 */}
+            <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/time.png"
+                alt="On-time Service"
+                width={50}
+                height={50}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">
+                On-Time Service
+              </h3>
+              <p className="text-gray-700 text-sm">
+                We value your time. Our professionals always arrive as scheduled.
+              </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/staff.png"
+                alt="Verified Staff"
+                width={50}
+                height={50}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">
+                Verified Staff
+              </h3>
+              <p className="text-gray-700 text-sm">
+                Skilled and background-verified staff for complete safety.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/clean.png"
+                alt="Hygienic Cleaning"
+                width={50}
+                height={50}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">
+                Hygienic Cleaning
+              </h3>
+              <p className="text-gray-700 text-sm">
+                We use safe, hygienic, and eco-friendly cleaning practices.
+              </p>
+            </div>
+
+            {/* Card 4 */}
+            <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/discount.png"
+                alt="First Booking Discount"
+                width={50}
+                height={50}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">
+                30% Off First Booking
+              </h3>
+              <p className="text-gray-700 text-sm">
+                Get a flat 30% discount on your first service booking.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 bg-blue-50 px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10">
+            How It Works
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/booking.png"
+                alt="Book Service"
+                width={60}
+                height={60}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">1. Book</h3>
+              <p className="text-gray-700 text-sm">
+                Choose your service and book easily through our website or call.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/service.png"
+                alt="Service at Home"
+                width={60}
+                height={60}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">
+                2. Service at Home
+              </h3>
+              <p className="text-gray-700 text-sm">
+                Our professional staff will arrive at your doorstep on time.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md transition">
+              <Image
+                src="/icons/payment.png"
+                alt="Pay Securely"
+                width={60}
+                height={60}
+                className="mx-auto mb-4"
+              />
+              <h3 className="font-bold text-lg mb-2 text-gray-900">
+                3. Pay Securely
+              </h3>
+              <p className="text-gray-700 text-sm">
+                Pay securely after the service is completed to your satisfaction.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
