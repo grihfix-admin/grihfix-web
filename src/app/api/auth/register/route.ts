@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       data: { email, password: hashedPassword, role: role || "customer" },
     });
     return NextResponse.json({ success: true, user: { email: user.email, role: user.role } });
-  } catch (err: any) {
+  }  catch {
     return NextResponse.json({ error: "User already exists" }, { status: 400 });
   }
 }
