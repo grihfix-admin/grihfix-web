@@ -1,20 +1,30 @@
 @import "tailwindcss";
 
-/* Root theme variables */
+/* Force light theme */
 :root {
-  --background: #ffffff; /* Always white */
-  --foreground: #171717; /* Dark text */
+  --background: #ffffff;
+  --foreground: #111827; /* tailwind gray-900 */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-/* Remove dark mode override completely */
+/* Lock the site to a white background (even if OS is in dark mode) */
+html,
 body {
-  @apply bg-white text-gray-900;
+  background: var(--background);
+  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+}
+
+/* Prevent dark-mode media query from flipping colors */
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* Footer link hover */
+footer a:hover {
+  text-decoration: underline;
 }
