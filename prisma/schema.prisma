@@ -7,22 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Booking {
-  id           Int      @id @default(autoincrement())
-  name         String
-  phone        String
-  address      String
-  service      String
-  date         String
-  time         String
-  instructions String?
-  status       String   @default("Pending")
-  createdAt    DateTime @default(now())
-}
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
   role      String   @default("customer") // "customer" | "admin"
   createdAt DateTime @default(now())
+}
+
+model Booking {
+  id           Int      @id @default(autoincrement())
+  service      String
+  address      String
+  date         DateTime              // <-- IMPORTANT: DateTime, not String
+  userId       Int
+  instructions String?               // optional
+  status       String   @default("Pending")
+  createdAt    DateTime @default(now())
 }
