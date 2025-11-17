@@ -21,7 +21,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
@@ -32,8 +32,9 @@ export function Navbar() {
               height={40}
               className="h-10 w-10 rounded-full object-contain"
             />
-            <span className="text-lg font-extrabold tracking-tight text-slate-900">
-              Grih<span className="text-blue-600">Fix</span>
+            <span className="text-lg font-extrabold tracking-tight">
+              <span className="text-slate-900">Grih</span>
+              <span className="text-blue-600">Fix</span>
             </span>
           </Link>
         </div>
@@ -63,7 +64,9 @@ export function Navbar() {
         <button
           type="button"
           aria-label="Toggle navigation"
-          className="rounded-full p-2 text-slate-700 ring-1 ring-slate-200 md:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          className="rounded-full p-2 text-slate-700 ring-1 ring-slate-200 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           onClick={() => setOpen((prev) => !prev)}
         >
           {open ? <X size={20} /> : <Menu size={20} />}
@@ -71,23 +74,24 @@ export function Navbar() {
       </Container>
 
       <div
+        id="mobile-nav"
         className={cn(
-          "origin-top border-t border-slate-100 bg-white transition-all duration-200 md:hidden",
-          open ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
+          "border-t border-slate-100 bg-white text-slate-800 shadow-lg transition-[max-height,opacity] duration-200 md:hidden",
+          open ? "max-h-[420px] opacity-100" : "pointer-events-none max-h-0 opacity-0"
         )}
       >
-        <Container className="flex flex-col gap-4 py-6">
+        <Container className="flex flex-col gap-4 py-0">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-base font-medium text-slate-700"
+              className="text-base font-medium text-slate-800"
               onClick={() => setOpen(false)}
             >
               {link.label}
             </Link>
           ))}
-          <div className="flex flex-col gap-3 pt-2">
+          <div className="flex flex-col gap-3 pb-6 pt-4">
             <Button href="tel:+919709870726" variant="secondary" className="w-full justify-center">
               Call +91 9709870726
             </Button>

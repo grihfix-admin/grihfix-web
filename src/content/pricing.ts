@@ -2,13 +2,19 @@ export const pricingTiers = [
   {
     id: "cleaning",
     service: "Home Deep Cleaning",
-    startingAt: "₹1,499",
-    items: ["1BHK to villa packages", "Includes kitchen & bathroom", "Add-on sofa shampooing", "Free walkthrough post cleaning"],
+    startingAt: "₹699",
+    items: [
+      "Home deep cleaning",
+      "Bathroom deep cleaning",
+      "Kitchen deep cleaning",
+      "Terrace / roof cleaning",
+      "Move-in / move-out cleaning",
+    ],
   },
   {
     id: "water",
     service: "Water Tank & Septic Tank",
-    startingAt: "₹999",
+    startingAt: "₹799",
     items: ["Mechanised scrub & suction", "Food-grade disinfectants", "Waste disposal handled", "High-volume bookings welcome"],
   },
   {

@@ -61,7 +61,7 @@ export default function ContactPage() {
       </section>
 
       <Section title="Tell us about your requirement">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] xl:gap-12">
           <form onSubmit={handleSubmit} className="space-y-6 rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
@@ -166,20 +166,14 @@ export default function ContactPage() {
             </Button>
           </form>
 
-          <div className="space-y-6 rounded-3xl border border-slate-100 bg-slate-50 p-6">
+          <div className="space-y-6 rounded-3xl border border-slate-100 bg-slate-50/80 p-6 shadow-sm">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.4em] text-blue-500">Quick contact</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-500">Quick contact</p>
               <div className="mt-4 space-y-3 text-sm text-slate-700">
                 <p>
                   Phone:{" "}
                   <a href="tel:+919709870726" className="font-semibold text-slate-900">
                     +91 97098 70726
-                  </a>
-                </p>
-                <p>
-                  WhatsApp:{" "}
-                  <a href="https://wa.me/919709870726" className="font-semibold text-slate-900">
-                    wa.me/919709870726
                   </a>
                 </p>
                 <p>
@@ -196,8 +190,8 @@ export default function ContactPage() {
               <p className="text-sm text-slate-500">Emergency plumbing/electrical visits available on request.</p>
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.4em] text-blue-500">Office</p>
-              <p className="mt-3 text-sm text-slate-700">Tower Chowk, Darbhanga 846004</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-500">Office</p>
+              <p className="mt-3 text-sm text-slate-700">Allalpatti, Darbhanga 846003</p>
               <p className="text-sm text-slate-500">Service radius: within 20 km of Darbhanga town.</p>
             </div>
             <iframe

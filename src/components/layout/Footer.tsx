@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Facebook, Instagram, Mail, Phone } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
 
@@ -21,62 +22,78 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-900 text-white">
-      <Container className="grid gap-10 py-12 md:grid-cols-4">
-        <div>
-          <p className="text-xl font-semibold">GrihFix</p>
-          <p className="mt-3 text-sm text-white/70">
-            Friendly home services for Darbhanga families. Safaai ho ya repair — bas bolo aur hum aa gaye!
+      <Container className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4">
+        <div className="space-y-3">
+          <p className="text-xl font-semibold">About GrihFix</p>
+          <p className="text-sm text-white/70">
+            Your one-stop solution for all home repair and maintenance needs in Darbhanga. Quality service, guaranteed.
           </p>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/60">
-            Explore
-          </p>
-          <ul className="mt-4 space-y-2 text-sm text-white/80">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="transition hover:text-white">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/60">
-            Contact
-          </p>
-          <ul className="mt-4 space-y-2 text-sm text-white/80">
-            <li>
-              Call:{" "}
-              <Link href="tel:+919709870726" className="font-medium text-white">
-                +91 97098 70726
-              </Link>
-            </li>
-            <li>
-              Email:{" "}
-              <Link href="mailto:grihfix.service@gmail.com" className="font-medium text-white">
+        <div className="space-y-3">
+          <p className="text-xl font-semibold">Contact Us</p>
+          <ul className="space-y-3 text-sm text-white/80">
+            <li className="flex items-center gap-3">
+              <Mail className="h-4 w-4 text-white/60" />
+              <Link href="mailto:grihfix.service@gmail.com" className="hover:text-white">
                 grihfix.service@gmail.com
               </Link>
             </li>
-            <li>Hours: 9am – 8pm, all week</li>
+            <li className="flex items-center gap-3">
+              <Phone className="h-4 w-4 text-white/60" />
+              <Link href="tel:+919709870726" className="hover:text-white">
+                +91 97098 70726
+              </Link>
+            </li>
           </ul>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/60">
-            Social
-          </p>
-          <ul className="mt-4 space-y-2 text-sm text-white/80">
-            {socials.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="transition hover:text-white" target="_blank" rel="noreferrer">
-                  {item.label} {item.handle && <span className="text-white/60">{item.handle}</span>}
-                </Link>
-              </li>
-            ))}
+        <div className="space-y-3">
+          <p className="text-xl font-semibold">Follow Us</p>
+          <ul className="space-y-3 text-sm text-white/80">
+            <li>
+              <Link
+                href="https://instagram.com/grihfix"
+                className="inline-flex items-center gap-3 hover:text-white hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Instagram className="h-4 w-4 text-white/60" />
+                Instagram
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="https://facebook.com/grihfixdbg"
+                className="inline-flex items-center gap-3 hover:text-white hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Facebook className="h-4 w-4 text-white/60" />
+                Facebook
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <p className="text-xl font-semibold">Legal</p>
+          <ul className="space-y-2 text-sm text-white/80">
+            <li>
+              <Link href="#" className="hover:text-white">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="#" className="hover:text-white">
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link href="#" className="hover:text-white">
+                Refund Policy
+              </Link>
+            </li>
           </ul>
         </div>
       </Container>
