@@ -1,121 +1,56 @@
-import Image from "next/image";
+// src/app/services/page.tsx
+import { ServiceCard } from "@/components/cards/ServiceCard";
+import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { services } from "@/content/services";
 
-export default function Services() {
+const categories = ["Cleaning", "Water & Septic", "Plumbing", "Electrical", "Other"] as const;
+
+export default function ServicesPage() {
   return (
-    <section className="py-16 bg-white px-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Our Services
-        </h1>
-        <p className="text-lg text-gray-600 mb-12">
-          Professional home cleaning, repair, and maintenance services in Darbhanga.
-        </p>
-
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-3 gap-10">
-          {/* Service 1 */}
-          <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition text-center">
-            <Image
-              src="/icons/home-clean.png"
-              alt="Home Cleaning"
-              width={60}
-              height={60}
-              className="mx-auto mb-4"
-            />
-            <h3 className="font-bold text-lg mb-2 text-gray-900">
-              Home Cleaning
-            </h3>
-            <p className="text-gray-700 text-sm">
-              Comprehensive cleaning for bedrooms, living rooms, and entire homes.
-            </p>
+    <div className="space-y-20 pb-20">
+      <section className="bg-blue-50">
+        <Container className="py-16 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.5em] text-blue-500">GrihFix Services</p>
+          <h1 className="mt-4 text-4xl font-bold text-slate-900">Detailed services for every corner of your home</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600">
+            From one-time deep cleaning to recurring maintenance, select the service that matches your need.
+            Quotes are customised after a short inspection or call.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Button href="/contact" size="lg">
+              Get a custom quote
+            </Button>
           </div>
+        </Container>
+      </section>
 
-          {/* Service 2 */}
-          <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition text-center">
-            <Image
-              src="/icons/kitchen.png"
-              alt="Bathroom & Kitchen Cleaning"
-              width={60}
-              height={60}
-              className="mx-auto mb-4"
-            />
-            <h3 className="font-bold text-lg mb-2 text-gray-900">
-              Bathroom & Kitchen Cleaning
-            </h3>
-            <p className="text-gray-700 text-sm">
-              Deep cleaning and sanitization for bathrooms and kitchens.
-            </p>
-          </div>
+      {categories.map((category) => {
+        const categoryServices = services.filter((service) => service.category === category);
+        if (!categoryServices.length) return null;
 
-          {/* Service 3 */}
-          <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition text-center">
-            <Image
-              src="/icons/water-tank.png"
-              alt="Water Tank Cleaning"
-              width={60}
-              height={60}
-              className="mx-auto mb-4"
-            />
-            <h3 className="font-bold text-lg mb-2 text-gray-900">
-              Water Tank Cleaning
-            </h3>
-            <p className="text-gray-700 text-sm">
-              Ensure clean, safe water with professional tank cleaning.
-            </p>
-          </div>
+        return (
+          <Section key={category} title={category} description="Flexible slots, assured punctuality, and support over WhatsApp.">
+            <div className="grid gap-6 md:grid-cols-2">
+              {categoryServices.map((service) => (
+                <ServiceCard key={service.id} {...service} actionLabel="Book Now" />
+              ))}
+            </div>
+          </Section>
+        );
+      })}
 
-          {/* Service 4 */}
-          <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition text-center">
-            <Image
-              src="/icons/septic-tank.png"
-              alt="Septic Tank Cleaning"
-              width={60}
-              height={60}
-              className="mx-auto mb-4"
-            />
-            <h3 className="font-bold text-lg mb-2 text-gray-900">
-              Septic Tank Cleaning
-            </h3>
-            <p className="text-gray-700 text-sm">
-              Safe and hygienic septic tank cleaning with expert staff.
-            </p>
-          </div>
-
-          {/* Service 5 */}
-          <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition text-center">
-            <Image
-              src="/icons/plumbing.png"
-              alt="Plumbing Services"
-              width={60}
-              height={60}
-              className="mx-auto mb-4"
-            />
-            <h3 className="font-bold text-lg mb-2 text-gray-900">
-              Plumbing
-            </h3>
-            <p className="text-gray-700 text-sm">
-              Reliable plumbing services for leaks, fittings, and installations.
-            </p>
-          </div>
-
-          {/* Service 6 */}
-          <div className="p-6 bg-blue-50 rounded-xl shadow hover:shadow-md transition text-center">
-            <Image
-              src="/icons/appliance.png"
-              alt="Appliance Repairs"
-              width={60}
-              height={60}
-              className="mx-auto mb-4"
-            />
-            <h3 className="font-bold text-lg mb-2 text-gray-900">
-              Appliance Repairs
-            </h3>
-            <p className="text-gray-700 text-sm">
-              Repairs and maintenance for electrical appliances like AC, fridge, etc.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+      <Section
+        background="brand"
+        align="center"
+        title="Need multiple services together?"
+        description="Bundle cleaning, plumbing, electrical or tank work to unlock combo discounts. Let’s draft a quick plan."
+      >
+        <Button href="/contact" size="lg" variant="secondary" className="text-slate-900">
+          Plan a visit
+        </Button>
+      </Section>
+    </div>
   );
 }
