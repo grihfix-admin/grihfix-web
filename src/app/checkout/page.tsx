@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import toast from "react-hot-toast"; // 👈 add toast
 
@@ -18,10 +18,11 @@ interface Service {
   discountInr: number | null;
 }
 
-export default function CheckoutPage() {
-  const params = useSearchParams();
+export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
   const router = useRouter();
-  const serviceSlug = params.get("service");
+  const resolvedParams = searchParams && typeof searchParams.then === "function" ? undefined : (searchParams as Record<string, string | string[] | undefined> | undefined);
+  const serviceParam = resolvedParams?.service;
+  const serviceSlug = Array.isArray(serviceParam) ? serviceParam[0] : serviceParam ?? null;
 
   const [service, setService] = useState<Service | null>(null);
   const [coupon, setCoupon] = useState("");
