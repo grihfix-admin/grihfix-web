@@ -8,7 +8,12 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "GrihFix — Hassle-free Home Services in Darbhanga",
-  description: "Home cleaning, water tank & septic cleaning, plumbing, electrical repairs and more – trusted pros in Darbhanga.",
+  description: "Home cleaning, water tank & septic cleaning, plumbing, electrical repairs and more – trusted pros in Darbhanga",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
