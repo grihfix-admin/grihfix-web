@@ -19,6 +19,8 @@ export const HOME_AREA_SLABS = [
   { range: "2501-3000", mult: 2.4 },
 ] as const;
 
+export type SlabRange = (typeof HOME_AREA_SLABS)[number]["range"];
+
 export const DEFAULT_HOME_AREA_RANGE = HOME_AREA_SLABS[1].range;
 
 export const roundRule = (x: number) => Math.ceil(x / 50) * 50 - 1;
@@ -33,7 +35,7 @@ export function displayedMrpForTarget(targetAfter: number): number {
   return disp;
 }
 
-export function slabFromArea(area: number | string | null | undefined): string {
+export function slabFromArea(area: number | string | null | undefined): SlabRange {
   const parsed = typeof area === "string" ? Number(area) : area ?? 0;
   if (!parsed || parsed <= 0) return DEFAULT_HOME_AREA_RANGE;
   for (const slab of HOME_AREA_SLABS) {

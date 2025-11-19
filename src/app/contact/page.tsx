@@ -14,6 +14,7 @@ import {
   HOME_AREA_SLABS,
   DEFAULT_HOME_AREA_RANGE,
   slabFromArea,
+  type SlabRange,
 } from "@/lib/pricingCalculator";
 
 const serviceOptions = [
@@ -29,7 +30,26 @@ const serviceOptions = [
 const CLEANING_SERVICE_IDS = new Set(["home-cleaning"]);
 const carWashServiceId = "car-wash";
 
-const defaultForm = {
+type ContactFormData = {
+  name: string;
+  phone: string;
+  email: string;
+  city: string;
+  fullAddress: string;
+  service: string;
+  preferredDate: string;
+  timeSlot: string;
+  message: string;
+  company: string;
+  homeType: string;
+  areaSqft: string;
+  areaRange: SlabRange;
+  washType: string;
+  carDetails: string;
+  couponCode: string;
+};
+
+const defaultForm: ContactFormData = {
     name: "",
     phone: "",
   email: "",
