@@ -1,23 +1,29 @@
 // src/app/api/bookings/[id]/route.ts
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
+import { BOOKING_STATUS_VALUES } from "@/constants/bookings";
 import Booking from "@/models/Booking";
+
+const STATUS_SET = new Set(BOOKING_STATUS_VALUES);
 
 // ✅ Fetch booking by ID
 export async function GET(
   _req: Request,
-  context: { params: Promise<{ id: string }> } // 👈 match Next.js App Router types
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
-    const { id } = await context.params; // 👈 await the params
+    const { id } = await context.params;
     const booking = await Booking.findById(id).lean();
 
     if (!booking) {
-      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Not found" },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ booking });
+    return NextResponse.json({ success: true, booking });
   } catch (err) {
     console.error("Error fetching booking:", err);
     return NextResponse.json(
@@ -34,8 +40,12 @@ export async function PATCH(
 ) {
   try {
     await connectToDatabase();
-    const { id } = await context.params; // 👈 await the params
+    const { id } = await context.params;
     const body = await req.json();
+
+    if (!STATUS_SET.has(body.status)) {
+      return NextResponse.json({ success: false, message: "Invalid status" }, { status: 400 });
+    }
 
     const booking = await Booking.findByIdAndUpdate(
       id,
@@ -44,7 +54,10 @@ export async function PATCH(
     ).lean();
 
     if (!booking) {
-      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Not found" },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({ success: true, booking });

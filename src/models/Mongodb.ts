@@ -15,7 +15,7 @@ export interface IBooking extends Document {
   couponCode?: string | null;
   amountCharged?: number | null;
   amountPaid?: number | null;
-  status?: "pending" | "confirmed" | "completed" | "cancelled";
+  status?: "new" | "confirmed" | "in-progress" | "completed" | "cancelled";
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -39,7 +39,11 @@ const BookingSchema: Schema<IBooking> = new Schema(
     couponCode: { type: String, default: null },
     amountCharged: { type: Number, default: null }, // final amount to be collected
     amountPaid: { type: Number, default: null },
-    status: { type: String, enum: ["pending", "confirmed", "completed", "cancelled"], default: "pending" },
+    status: {
+      type: String,
+      enum: ["new", "confirmed", "in-progress", "completed", "cancelled"],
+      default: "new",
+    },
   },
   { timestamps: true }
 );

@@ -50,7 +50,7 @@ export default function HomePage() {
               <Button href="tel:+919709870726" size="lg" className="justify-center sm:justify-start">
                 Call Now
               </Button>
-              <Button href="/contact" variant="secondary" size="lg" className="justify-center sm:justify-start text-slate-900">
+              <Button href="/pricing#estimate" variant="secondary" size="lg" className="justify-center sm:justify-start text-slate-900">
                 Get Free Estimate
               </Button>
             </div>
@@ -129,11 +129,22 @@ export default function HomePage() {
         title="Hear from Darbhanga families"
         description="Real stories from local households who trust GrihFix with their space."
       >
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="mt-10 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4">
           {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} quote={testimonial.quote} name={testimonial.name} area={testimonial.area} />
+            <div
+              key={testimonial.id}
+              className="min-w-[260px] snap-center md:min-w-[320px] md:flex-[0_0_33%]"
+            >
+              <TestimonialCard
+                quote={testimonial.quote}
+                name={testimonial.name}
+                location={testimonial.location}
+                rating={testimonial.rating}
+              />
+            </div>
           ))}
         </div>
+        <p className="mt-2 text-sm text-slate-500 md:hidden">Swipe sideways to see more stories →</p>
       </Section>
 
       <Section background="brand" align="center" title="Ready to fix your home problems?" description="Ping us on WhatsApp or drop a quick form. Team reaches out within 10 minutes during working hours.">

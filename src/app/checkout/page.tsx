@@ -36,6 +36,9 @@ export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
   const [city, setCity] = useState("");
   const [landmark, setLandmark] = useState("");
   const [fullAddress, setFullAddress] = useState("");
+  const [variant, setVariant] = useState("");
+  const [scheduledDate, setScheduledDate] = useState("");
+  const [notes, setNotes] = useState("");
 
   // map coords
   const [coords, setCoords] = useState<{ lat: number; lng: number }>({
@@ -96,7 +99,7 @@ export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
 
     // confirm booking → save to MongoDB
     const handleConfirmBooking = async () => {
-      if (!customerName || !phone || !pincode || !city || !fullAddress) {
+      if (!customerName || !phone || !fullAddress) {
         toast.error("Please fill all required fields");
         return;
       }
@@ -113,34 +116,42 @@ export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
       // show loading toast
       const toastId = toast.loading("Booking your service... ⏳");
 
+      const payload = {
+        name: customerName,
+        phone,
+        email,
+        address: fullAddress,
+        city,
+        pincode,
+        landmark,
+        coords,
+        variant: variant || null,
+        scheduledDate: scheduledDate || null,
+        notes: notes || null,
+        serviceName: service.name,
+        serviceSlug: service.slug,
+        finalPrice,
+        source: "website",
+      };
+
+      console.log("[Checkout] Confirm booking clicked with payload:", payload);
+
       try {
         const res = await fetch("/api/bookings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            serviceId: service._id,
-            serviceName: service.name,
-            customerName,
-            phone,
-            email,
-            pincode,
-            city,
-            landmark,
-            fullAddress,
-            coords,
-            finalPrice,
-            date: new Date(),
-          }),
+          body: JSON.stringify(payload),
         });
 
         const data = await res.json();
+        console.log("[Checkout] Booking API response:", data);
 
         if (data.success) {
           toast.success("Booking confirmed 🎉 Redirecting...", { id: toastId });
         
           // ⏳ wait 2 seconds before redirecting
           setTimeout(() => {
-            router.push(`/booking-success?booking=${data.booking._id}`);
+            router.push(`/booking-success?status=success&bookingId=${data.bookingId}`);
           }, 2000);
         } else {
           toast.error(data.error || "Failed to save booking", { id: toastId });
@@ -206,7 +217,10 @@ export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
             <input type="text" placeholder="Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
             <input type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
             <input type="text" placeholder="Landmark (optional)" value={landmark} onChange={(e) => setLandmark(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
+            <input type="text" placeholder="Variant (e.g. 2 BHK, 500L tank)" value={variant} onChange={(e) => setVariant(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
+            <input type="datetime-local" value={scheduledDate} onChange={(e) => setScheduledDate(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
             <textarea placeholder="Full Address" value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
+            <textarea placeholder="Notes / special instructions (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full border px-3 py-2 rounded-md text-sm" />
 
             {/* Map */}
             <div className="h-64 mt-4">

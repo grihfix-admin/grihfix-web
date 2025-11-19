@@ -3,12 +3,15 @@ import Image from "next/image";
 
 interface Booking {
   _id: string;
-  service: string;
-  customerName: string;
+  name: string;
   phone: string;
-  fullAddress: string;
-  finalPrice: number;
-  createdAt?: string;
+  address: string;
+  serviceName: string;
+  serviceSlug: string;
+  variant?: string | null;
+  scheduledDate?: string | null;
+  trackingCode?: string | null;
+  status?: string;
 }
 
 type PageProps = {
@@ -43,44 +46,17 @@ async function fetchBooking(bookingId?: string | null): Promise<Booking | null> 
 
 export default async function BookingSuccessPage({ searchParams }: PageProps) {
   const resolvedParams = (await searchParams) ?? {};
-  const bookingParam = resolvedParams.booking;
+  const statusParam = resolvedParams.status;
+  const bookingParam = resolvedParams.bookingId || resolvedParams.booking;
   const bookingId = Array.isArray(bookingParam) ? bookingParam[0] : bookingParam ?? null;
   const booking = await fetchBooking(bookingId);
 
-  const renderDetails = () => {
-    if (booking) {
-      return (
-        <div className="text-left mb-6 text-gray-700 space-y-2">
-          <p>
-            <span className="font-semibold">Service:</span> {booking.service}
-          </p>
-          <p>
-            <span className="font-semibold">Customer:</span> {booking.customerName}
-          </p>
-          <p>
-            <span className="font-semibold">Phone:</span> {booking.phone}
-          </p>
-          <p>
-            <span className="font-semibold">Address:</span> {booking.fullAddress}
-          </p>
-          <p>
-            <span className="font-semibold">Price:</span> ₹{booking.finalPrice}
-          </p>
-          {booking.createdAt && (
-            <p>
-              <span className="font-semibold">Date:</span> {new Date(booking.createdAt).toLocaleString()}
-            </p>
-          )}
-        </div>
-      );
-    }
-
-    if (!bookingId) {
-      return <p className="text-gray-500 mb-6">We couldn’t find a booking reference. Please check your link.</p>;
-    }
-
-    return <p className="text-gray-500 mb-6">Booking details are not available right now. Please contact support.</p>;
-  };
+  const statusMessage =
+    statusParam === "success"
+      ? "Booking confirmed! We'll reach out shortly."
+      : statusParam === "error"
+      ? "We received your request but need manual confirmation."
+      : "We're reviewing your booking details.";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -89,11 +65,57 @@ export default async function BookingSuccessPage({ searchParams }: PageProps) {
           <Image src="/icons/confirm.png" alt="Booking Confirmed" width={50} height={50} />
         </div>
 
-        <h1 className="text-2xl font-bold text-green-600 mb-3">Booking Confirmed!</h1>
+        <h1 className="text-2xl font-bold text-green-600 mb-3">Booking Received</h1>
+        <p className="text-gray-600 mb-6">{statusMessage}</p>
 
-        {renderDetails()}
+        {booking ? (
+          <div className="text-left mb-6 text-gray-700 space-y-2">
+            <p>
+              <span className="font-semibold">Service:</span> {booking.serviceName}
+              {booking.variant ? ` (${booking.variant})` : ""}
+            </p>
+            <p>
+              <span className="font-semibold">Customer:</span> {booking.name}
+            </p>
+            <p>
+              <span className="font-semibold">Phone:</span> {booking.phone}
+            </p>
+            <p>
+              <span className="font-semibold">Address:</span> {booking.address}
+            </p>
+            {booking.scheduledDate && (
+              <p>
+                <span className="font-semibold">Preferred slot:</span> {new Date(booking.scheduledDate).toLocaleString()}
+              </p>
+            )}
+            <p>
+              <span className="font-semibold">Booking ID:</span> {booking._id}
+            </p>
+            {booking.trackingCode && (
+              <p>
+                <span className="font-semibold">Tracking code:</span> {booking.trackingCode}
+              </p>
+            )}
+          </div>
+        ) : bookingId ? (
+          <p className="text-gray-500 mb-6">
+            Booking ID: {bookingId}. We will call you shortly on your registered number.
+          </p>
+        ) : (
+          <p className="text-gray-500 mb-6">
+            Thank you for choosing GrihFix. Our team will confirm your booking shortly.
+          </p>
+        )}
 
         <div className="space-y-3">
+          {booking?.trackingCode && (
+            <Link
+              href={`/track/${booking.trackingCode}`}
+              className="block w-full rounded-lg border border-emerald-500 bg-emerald-50 px-4 py-2 text-emerald-700 hover:bg-emerald-100"
+            >
+              Track this booking
+            </Link>
+          )}
           <Link href="/" className="block w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
             Go Home
           </Link>

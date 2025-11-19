@@ -82,6 +82,21 @@ export const services: ServiceDefinition[] = [
     category: "Water & Septic",
   },
   {
+    id: "car-wash",
+    title: "Car Wash",
+    description: "Exterior and interior car wash handled at your doorstep",
+    icon: "/icons/services/service.png",
+    startingPrice: "₹500",
+    bullets: [
+      "Exterior rinse to remove dust, mud and stains",
+      "Interior vacuum and dashboard wipe for inside packages",
+      "Car-safe shampoos and microfiber cloths",
+      "Ideal before long drives or special occasions",
+    ],
+    href: "/contact?service=car-wash",
+    category: "Other",
+  },
+  {
     id: "plumbing-visit",
     title: "Plumbing Visit",
     description: "Expert plumber visit for diagnostics & fixes",

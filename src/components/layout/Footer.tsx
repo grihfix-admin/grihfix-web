@@ -80,17 +80,17 @@ export function Footer() {
           <p className="text-xl font-semibold">Legal</p>
           <ul className="space-y-2 text-sm text-white/80">
             <li>
-              <Link href="#" className="hover:text-white">
+              <Link href="/privacy-policy" className="hover:text-white">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-white">
+              <Link href="/terms" className="hover:text-white">
                 Terms & Conditions
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-white">
+              <Link href="/refund-policy" className="hover:text-white">
                 Refund Policy
               </Link>
             </li>
