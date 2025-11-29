@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import { BOOKING_STATUS_LABELS, BOOKING_STATUS_VALUES, type BookingStatus } from "@/constants/bookings";
 import { AdminBookingsTable } from "@/components/admin/AdminBookingsTable";
@@ -15,6 +16,11 @@ function isValidStatus(status?: string | null): status is BookingStatus {
   if (!status) return false;
   return (BOOKING_STATUS_VALUES as readonly string[]).includes(status);
 }
+
+export const metadata: Metadata = {
+  title: "Admin dashboard • GrihFix",
+  description: "Review and manage GrihFix Darbhanga bookings, statuses, and technician assignments.",
+};
 
 export default async function AdminDashboard({ searchParams }: PageProps) {
   const params = (await searchParams) ?? {};

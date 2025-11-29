@@ -1,9 +1,16 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { promises } from "@/content/promises";
+
+export const metadata: Metadata = {
+  title: "About GrihFix Darbhanga",
+  description:
+    "Learn how GrihFix became Darbhanga’s trusted partner for deep cleaning, tank cleaning, plumbing, and electrical services with a local, verified crew.",
+};
 
 export default function AboutPage() {
   return (
