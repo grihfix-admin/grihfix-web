@@ -1,10 +1,21 @@
-export const testimonials = [
+export type Testimonial = {
+  id: string;
+  quote: string;
+  name: string;
+  location: string;
+  rating: number;
+  service: string;
+  avatar?: string;
+};
+
+export const testimonials: Testimonial[] = [
   {
     id: "anita",
     quote: "Booking was simple and the team cleaned our 2BHK spotless before guests arrived.",
     name: "Anita Mishra",
     location: "Laheriasarai, Darbhanga",
     rating: 5,
+    service: "Home deep cleaning",
   },
   {
     id: "naveen",
@@ -12,6 +23,7 @@ export const testimonials = [
     name: "Naveen Singh",
     location: "Bahadurpur, Darbhanga",
     rating: 5,
+    service: "Tank cleaning",
   },
   {
     id: "sana",
@@ -19,6 +31,7 @@ export const testimonials = [
     name: "Sana Fatima",
     location: "Donar Road, Darbhanga",
     rating: 5,
+    service: "Electrical repair",
   },
   {
     id: "rahul",
@@ -26,6 +39,7 @@ export const testimonials = [
     name: "Rahul Thakur",
     location: "Allalpatti, Darbhanga",
     rating: 5,
+    service: "Car wash",
   },
   {
     id: "neha",
@@ -33,6 +47,7 @@ export const testimonials = [
     name: "Neha Kumari",
     location: "Mirzapur, Darbhanga",
     rating: 5,
+    service: "Bathroom cleaning",
   },
   {
     id: "imran",
@@ -40,6 +55,7 @@ export const testimonials = [
     name: "Imran Alam",
     location: "Benta, Darbhanga",
     rating: 5,
+    service: "Plumbing visit",
   },
   {
     id: "sunita",
@@ -47,6 +63,7 @@ export const testimonials = [
     name: "Sunita Jha",
     location: "New Basuara, Darbhanga",
     rating: 5,
+    service: "Kitchen cleaning",
   },
   {
     id: "vikas",
@@ -54,6 +71,7 @@ export const testimonials = [
     name: "Vikas Raj",
     location: "Shivdhara, Darbhanga",
     rating: 5,
+    service: "Septic tank cleaning",
   },
 ];
 

@@ -11,6 +11,7 @@ type SectionProps = {
   background?: "default" | "muted" | "brand";
   className?: string;
   children?: ReactNode;
+  id?: string;
 };
 
 const backgroundMap = {
@@ -27,11 +28,12 @@ export function Section({
   background = "default",
   className,
   children,
+  id,
 }: SectionProps) {
   const isCentered = align === "center";
 
   return (
-    <section className={cn("py-12 sm:py-16", backgroundMap[background], className)}>
+    <section id={id} className={cn("py-12 sm:py-16", backgroundMap[background], className)}>
       <Container>
         {(eyebrow || title || description) && (
           <div className={cn("mb-10", isCentered ? "text-center mx-auto max-w-3xl" : "max-w-2xl")}>

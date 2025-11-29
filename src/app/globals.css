@@ -28,3 +28,29 @@ body {
 footer a:hover {
   text-decoration: underline;
 }
+
+.hero-gradient {
+  background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.25), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.2), transparent 60%),
+    linear-gradient(135deg, #0f172a, #0b1120);
+  background-size: 200% 200%;
+  animation: heroGradient 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

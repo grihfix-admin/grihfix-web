@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import type { Metadata } from "next";
+import Script from "next/script";
+import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -12,6 +14,7 @@ import {
   displayedMrpForTarget,
   HOME_AREA_SLABS,
   HomeCleaningVariant,
+  multiplierFor,
   roundRule,
   slabFromArea,
 } from "@/lib/pricingCalculator";
@@ -252,6 +255,54 @@ const SERVICE_CONFIG: ServiceConfig[] = [
 const DEFAULT_SERVICE_ID = SERVICE_CONFIG[0].id;
 const DEFAULT_VARIANT_ID = SERVICE_CONFIG[0].variants[0].id;
 
+const faqItems = [
+  {
+    question: "Is the online estimate the final price?",
+    answer:
+      "No. The calculator shows a discounted indicative price based on your inputs. Final quotes are confirmed after a quick video or on-site walkthrough so we can note condition, scope, and materials.",
+  },
+  {
+    question: "What does the 30% OFF include?",
+    answer:
+      "Our launch discount applies on labour for home, tank, and car cleaning. Consumables or add-ons (e.g., heavy machinery, chemicals) are billed separately with full transparency.",
+  },
+  {
+    question: "Can I club multiple services for better pricing?",
+    answer:
+      "Absolutely. Add multiple services to the quote list, share it with us, and we will bundle them so technicians can finish faster. Clubbed jobs usually unlock extra savings on labour and travel.",
+  },
+  {
+    question: "How do I lock a slot after seeing the estimate?",
+    answer:
+      "Submit the quote or ping us on WhatsApp with photos/videos. We confirm the slot, send technician details, and only then request a small booking advance if required.",
+  },
+] as const;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
+const pricingStats = [
+  { title: "30% OFF launch pricing", detail: "Auto-applied on labour" },
+  { title: "72 hr price lock", detail: "Quote valid for 3 days" },
+  { title: "WhatsApp confirmations", detail: "Slot + technician updates" },
+] as const;
+
+export const metadata: Metadata = {
+  title: "Pricing & estimates • GrihFix Darbhanga",
+  description:
+    "Calculate your home cleaning, tank cleaning, plumbing and electrical service costs with GrihFix Darbhanga’s transparent price estimator and FAQ.",
+};
+
 export default function PricingPage() {
   const [serviceId, setServiceId] = useState(DEFAULT_SERVICE_ID);
   const [variantId, setVariantId] = useState(DEFAULT_VARIANT_ID);
@@ -296,15 +347,6 @@ export default function PricingPage() {
       couponCode,
     ]
   );
-
-  useEffect(() => {
-    if (serviceId !== HOME_SERVICE_ID) return;
-    if (!areaSqft.trim()) return;
-    const nextRange = slabFromArea(areaSqft);
-    if (nextRange !== areaRange) {
-      setAreaRange(nextRange);
-    }
-  }, [areaSqft, areaRange, serviceId]);
 
   const shareHref = `/contact?service=${encodeURIComponent(
     selectedService.slug
@@ -352,23 +394,67 @@ export default function PricingPage() {
   const grandTotal = quoteLines.reduce((sum, line) => sum + line.finalPrice * line.quantity, 0);
 
   const showAreaControls = serviceId === HOME_SERVICE_ID;
+  const areaMultiplier = showAreaControls ? multiplierFor(calculation.effectiveRange ?? areaRange) : null;
 
   return (
-    <div className="space-y-16 pb-20">
-      <section className="bg-slate-900 text-white">
-        <Container className="py-16 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.5em] text-blue-200">Transparent pricing</p>
-          <h1 className="mt-4 text-4xl font-bold">Simple estimates, no hidden charges.</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-white/80">
-            Every home is different, so the final quote comes after a quick assessment. But here’s a clear idea of where our pricing starts.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button href="#estimate" size="lg" variant="secondary" className="text-slate-900">
-              Get Free Estimate
-            </Button>
-            <Button href="tel:+919709870726" size="lg" variant="ghost" className="text-white">
-              Call +91 97098 70726
-            </Button>
+    <div className="space-y-20 pb-24">
+      <section className="hero-gradient relative overflow-hidden text-white">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-900/10 via-slate-900/40 to-slate-950/90" />
+        <div className="pointer-events-none absolute -left-10 top-10 h-56 w-56 rounded-full bg-sky-400/30 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 translate-y-1/3 rounded-full bg-blue-500/30 blur-3xl" />
+        <Container className="relative grid gap-10 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="space-y-6 text-center lg:text-left">
+            <span className="inline-flex items-center justify-center rounded-full border border-white/30 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-blue-100">
+              Transparent pricing
+            </span>
+            <div className="space-y-4">
+              <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">Simple estimates, zero surprise add-ons.</h1>
+              <p className="text-base text-white/80">
+                Every Darbhanga home is unique. Use our estimator to see launch pricing (30% OFF) and lock your quote for 72 hours while we line up the right crew.
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
+              <Button href="#estimate" size="lg" variant="secondary" className="w-full justify-center text-slate-900 sm:w-auto">
+                Get Free Estimate
+              </Button>
+              <Button href="tel:+919709870726" size="lg" variant="ghost" className="w-full justify-center text-white sm:w-auto">
+                Call +91 97098 70726
+              </Button>
+            </div>
+            <div className="grid gap-3 pt-4 text-left sm:grid-cols-3">
+              {pricingStats.map((stat) => (
+                <div key={stat.title} className="rounded-2xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur">
+                  <p className="text-sm font-semibold">{stat.title}</p>
+                  <p className="text-xs text-white/70">{stat.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-3xl border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur">
+            <div className="flex items-center gap-3 rounded-2xl bg-emerald-500/10 px-4 py-3 text-left text-emerald-100">
+              <span className="text-4xl">🎉</span>
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.4em]">Launch offer</p>
+                <p className="text-base font-semibold text-white">Flat 30% OFF on labour for November bookings</p>
+              </div>
+            </div>
+            <p className="mt-6 text-sm text-white/80">
+              Add your services to the estimate, share it on WhatsApp, and we confirm availability within 10 minutes during working hours.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-white/80">
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-300" />
+                <span>Verified & background-checked pros</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-300" />
+                <span>Digital invoice + WhatsApp tracking</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-300" />
+                <span>Combo discounts for multi-service bookings</span>
+              </li>
+            </ul>
           </div>
         </Container>
       </section>
@@ -379,8 +465,8 @@ export default function PricingPage() {
           title="Estimate your price"
           description="Pick your service and flat size to get an approximate starting quote. Final quote will be confirmed after site inspection."
         >
-          <div className="grid gap-6 lg:grid-cols-[3fr_2fr]">
-          <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+          <div className="grid gap-8 lg:grid-cols-[3fr_2fr]">
+          <div className="rounded-3xl border border-slate-100/80 bg-white/95 p-6 shadow-xl">
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <label className="text-sm font-medium text-slate-600">Service type</label>
@@ -448,7 +534,11 @@ export default function PricingPage() {
                     min={100}
                     max={3000}
                     value={areaSqft}
-                    onChange={(event) => setAreaSqft(event.target.value)}
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      setAreaSqft(value);
+                      setAreaRange(slabFromArea(value));
+                    }}
                     className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="e.g. 700"
                   />
@@ -461,7 +551,10 @@ export default function PricingPage() {
                       <select
                         id="areaRangeSelect"
                         value={areaRange}
-                        onChange={(event) => setAreaRange(event.target.value)}
+                        onChange={(event) => {
+                          setAreaRange(event.target.value);
+                          setAreaSqft("");
+                        }}
                         className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                       >
                         {HOME_AREA_SLABS.map((slab) => (
@@ -499,7 +592,12 @@ export default function PricingPage() {
                   <span className="text-lg font-bold text-slate-900">₹{calculation.unitMrp.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-blue-100">
-                  <span className="font-medium text-slate-700">You Save (30% OFF)</span>
+                  <span className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                    You Save
+                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700">
+                      30% OFF
+                    </span>
+                  </span>
                   <span className="text-lg font-bold text-emerald-600">-₹{calculation.baseDiscount.toLocaleString()}</span>
                 </div>
                 {couponCode && calculation.couponSavings > 0 && (
@@ -512,6 +610,12 @@ export default function PricingPage() {
                   <div className="flex justify-between items-center py-2 text-xs text-slate-500">
                     <span>Area slab</span>
                     <span className="font-medium">{calculation.effectiveRange ?? areaRange}</span>
+                  </div>
+                )}
+                {areaMultiplier && (
+                  <div className="flex justify-between items-center py-2 text-xs text-slate-500">
+                    <span>Multiplier</span>
+                    <span className="font-semibold text-slate-800">{areaMultiplier.toFixed(2)}×</span>
                   </div>
                 )}
               </div>
@@ -547,7 +651,7 @@ export default function PricingPage() {
             </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm h-fit max-h-[calc(100vh-12rem)] flex flex-col">
+            <div className="rounded-3xl border border-slate-100/80 bg-white/95 p-6 shadow-xl h-fit max-h-[calc(100vh-12rem)] flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-500">Quote list</p>
@@ -632,9 +736,14 @@ export default function PricingPage() {
           {pricingTiers.map((tier) => (
             <div
               key={tier.id}
-              className="flex h-full flex-col rounded-2xl border border-slate-100 bg-white p-6 shadow-sm"
+              className="flex h-full flex-col rounded-3xl border border-slate-100/80 bg-white/95 p-6 shadow-lg transition hover:-translate-y-1"
             >
-              <p className="text-sm uppercase tracking-[0.4em] text-blue-500">{tier.service}</p>
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-500">{tier.service}</p>
+                <span className="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-emerald-600">
+                  30% OFF
+                </span>
+              </div>
               <p className="mt-3 text-3xl font-bold text-slate-900">{tier.startingAt}</p>
               <p className="text-sm text-slate-500">Starting package</p>
               <ul className="mt-6 space-y-3 text-sm text-slate-600">
@@ -661,19 +770,19 @@ export default function PricingPage() {
         description="Book a slot, we inspect virtually or in person, then share a digital quote with inclusions, exclusions, and payment schedule."
       >
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-md">
             <h3 className="text-lg font-semibold text-slate-900">Visit fee waived</h3>
             <p className="mt-2 text-sm text-slate-600">
               We don’t charge for inspection when you confirm the job with GrihFix.
             </p>
           </div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-md">
             <h3 className="text-lg font-semibold text-slate-900">Digital invoices</h3>
             <p className="mt-2 text-sm text-slate-600">
               Receive invoices via WhatsApp + email, with UPI & cash options available.
             </p>
           </div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-md">
             <h3 className="text-lg font-semibold text-slate-900">Combo discounts</h3>
             <p className="mt-2 text-sm text-slate-600">
               Club multiple services (e.g., cleaning + plumbing) for better per-service pricing.
@@ -681,6 +790,30 @@ export default function PricingPage() {
           </div>
         </div>
       </Section>
+
+      <Section
+        eyebrow="Need clarity?"
+        title="Pricing FAQ"
+        description="Most questions get answered in a single WhatsApp chat, but here are the commonly asked ones."
+      >
+        <div className="space-y-4">
+          {faqItems.map((faq) => (
+            <details
+              key={faq.question}
+              className="group rounded-3xl border border-slate-100 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 [&_summary::-webkit-details-marker]:hidden"
+            >
+              <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-slate-900">
+                {faq.question}
+                <span className="text-xl text-blue-500 transition group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </Section>
+      <Script id="pricing-faq-schema" type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify(faqSchema)}
+      </Script>
     </div>
   );
 }

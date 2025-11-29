@@ -8,6 +8,7 @@ export type ServiceDefinition = {
   href: string;
   highlight?: string;
   category: "Cleaning" | "Water & Septic" | "Plumbing" | "Electrical" | "Other";
+  timeRequired?: string;
 };
 
 export const services: ServiceDefinition[] = [
@@ -24,6 +25,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=cleaning",
     category: "Cleaning",
+    timeRequired: "Team of 3 · 4-6 hrs",
   },
   {
     id: "bathroom-deep-clean",
@@ -38,6 +40,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=bathroom",
     category: "Cleaning",
+    timeRequired: "2 pros · 2 hrs",
   },
   {
     id: "kitchen-deep-clean",
@@ -52,6 +55,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=kitchen",
     category: "Cleaning",
+    timeRequired: "2 pros · 2.5 hrs",
   },
   {
     id: "terrace-clean",
@@ -66,6 +70,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=terrace",
     category: "Cleaning",
+    timeRequired: "3 pros · 3 hrs",
   },
   {
     id: "water-tank",
@@ -80,6 +85,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=water-tank",
     category: "Water & Septic",
+    timeRequired: "2 pros · 1.5 hrs",
   },
   {
     id: "car-wash",
@@ -95,6 +101,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=car-wash",
     category: "Other",
+    timeRequired: "2 pros · 1-1.5 hrs",
   },
   {
     id: "plumbing-visit",
@@ -109,6 +116,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=plumbing",
     category: "Plumbing",
+    timeRequired: "1 expert · 45 mins",
   },
   {
     id: "electrician-visit",
@@ -123,6 +131,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact?service=electrical",
     category: "Electrical",
+    timeRequired: "1 expert · 45 mins",
   },
   {
     id: "other-maintenance",
@@ -138,6 +147,7 @@ export const services: ServiceDefinition[] = [
     ],
     href: "/contact",
     category: "Other",
+    timeRequired: "Custom timing",
   },
 ];
 

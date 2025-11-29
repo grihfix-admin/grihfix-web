@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
-import { Menu, PhoneCall, X } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -19,9 +19,24 @@ const navLinks = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 16);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b border-transparent bg-white/80 backdrop-blur transition-all",
+        scrolled ? "border-slate-100 shadow-lg" : "shadow-sm"
+      )}
+    >
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
@@ -39,12 +54,15 @@ export function Navbar() {
           </Link>
         </div>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="transition hover:text-slate-900"
+              className={cn(
+                "transition hover:text-slate-900",
+                scrolled ? "text-slate-500" : "text-slate-600"
+              )}
             >
               {link.label}
             </Link>
@@ -52,7 +70,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button href="tel:+919709870726" variant="secondary" size="md" className="gap-2">
+          <Button href="tel:+919709870726" variant="secondary" size="md" className="gap-2 bg-gradient-to-r from-amber-200 to-yellow-100 text-slate-900">
             <PhoneCall size={16} />
             Call Now
           </Button>
@@ -66,10 +84,29 @@ export function Navbar() {
           aria-label="Toggle navigation"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="rounded-full p-2 text-slate-700 ring-1 ring-slate-200 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          className="md:hidden"
           onClick={() => setOpen((prev) => !prev)}
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
+          <span className="sr-only">Menu</span>
+          <span
+            className={cn(
+              "relative block h-8 w-8 rounded-full border border-slate-200 bg-white/80 p-2 shadow-sm transition hover:border-slate-300",
+              open && "border-blue-200"
+            )}
+          >
+            <span
+              className={cn(
+                "absolute left-1.5 top-2 block h-0.5 w-5 bg-slate-700 transition-all duration-200",
+                open ? "translate-y-1.5 rotate-45" : ""
+              )}
+            />
+            <span
+              className={cn(
+                "absolute left-1.5 top-3.5 block h-0.5 w-5 bg-slate-700 transition-all duration-200",
+                open ? "-translate-y-1.5 -rotate-45" : ""
+              )}
+            />
+          </span>
         </button>
       </Container>
 

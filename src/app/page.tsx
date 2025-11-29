@@ -1,14 +1,14 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
 import { ServiceCard } from "@/components/cards/ServiceCard";
 import { StepCard } from "@/components/cards/StepCard";
-import { TestimonialCard } from "@/components/cards/TestimonialCard";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { TestimonialsSlider } from "@/components/sections/TestimonialsSlider";
 import { services } from "@/content/services";
 import { steps } from "@/content/steps";
-import { testimonials } from "@/content/testimonials";
 
 const features = [
   {
@@ -33,11 +33,26 @@ const features = [
   },
 ];
 
+const trustBadges = [
+  { icon: "⭐", label: "4.8 rating by Darbhanga customers" },
+  { icon: "🧹", label: "400+ homes cleaned" },
+  { icon: "🛡", label: "Verified & background-checked professionals" },
+];
+
+export const metadata: Metadata = {
+  title: "GrihFix — Local home services for Darbhanga",
+  description:
+    "Book deep cleaning, tank cleaning, plumbing, electrical repairs and car wash services by verified Darbhanga professionals. Instant WhatsApp support and transparent pricing.",
+};
+
 export default function HomePage() {
   return (
-    <div className="space-y-16 pb-16">
-      <section className="bg-slate-900 text-white">
-        <Container className="grid gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+    <div className="space-y-12 pb-16 sm:space-y-16 sm:pb-20">
+      <section className="hero-gradient relative overflow-hidden text-white">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-900/20 via-slate-900/40 to-slate-950/80" />
+        <div className="pointer-events-none absolute -left-10 top-10 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 translate-y-1/3 rounded-full bg-blue-500/20 blur-3xl" />
+        <Container className="relative grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-[0.4em] text-blue-200">Darbhanga • Bihar</p>
             <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
@@ -54,9 +69,22 @@ export default function HomePage() {
                 Get Free Estimate
               </Button>
             </div>
+            <div className="grid gap-3 pt-2 text-sm text-white/90 sm:grid-cols-3">
+              {trustBadges.map((badge) => (
+                <div
+                  key={badge.label}
+                  className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/10 px-3 py-2 text-left shadow-sm backdrop-blur"
+                >
+                  <span aria-hidden className="text-base">
+                    {badge.icon}
+                  </span>
+                  <span className="font-medium">{badge.label}</span>
+                </div>
+              ))}
+            </div>
             <p className="text-sm text-white/70">Currently serving only in Darbhanga city limits.</p>
           </div>
-          <div className="relative order-first overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-2xl lg:order-last">
+          <div className="relative order-first overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-4 shadow-2xl backdrop-blur-sm lg:order-last">
             <Image
               src="/images/home-hero.jpg"
               alt="GrihFix professionals at work"
@@ -129,22 +157,9 @@ export default function HomePage() {
         title="Hear from Darbhanga families"
         description="Real stories from local households who trust GrihFix with their space."
       >
-        <div className="mt-10 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="min-w-[260px] snap-center md:min-w-[320px] md:flex-[0_0_33%]"
-            >
-              <TestimonialCard
-                quote={testimonial.quote}
-                name={testimonial.name}
-                location={testimonial.location}
-                rating={testimonial.rating}
-              />
-            </div>
-          ))}
+        <div className="mt-10">
+          <TestimonialsSlider />
         </div>
-        <p className="mt-2 text-sm text-slate-500 md:hidden">Swipe sideways to see more stories →</p>
       </Section>
 
       <Section background="brand" align="center" title="Ready to fix your home problems?" description="Ping us on WhatsApp or drop a quick form. Team reaches out within 10 minutes during working hours.">
