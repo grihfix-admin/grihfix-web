@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* GrihFix v2 design tokens — warm "saffron" accent layered on the existing
+   trust-blue palette, plus Devanagari-friendly type for the Hindi toggle. */
+@theme {
+  --color-saffron-50: #fff8ee;
+  --color-saffron-100: #ffecc7;
+  --color-saffron-200: #ffd98f;
+  --color-saffron-300: #ffc157;
+  --color-saffron-400: #ffa733;
+  --color-saffron-500: #ff9130;
+  --color-saffron-600: #f2760e;
+  --color-saffron-700: #c75a08;
+  --color-saffron-800: #9c4308;
+  --color-saffron-900: #7c370c;
+
+  --font-sans: "Hind", "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", "Hind", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Force light theme */
+:root {
+  --background: #ffffff;
+  --foreground: #111827; /* tailwind gray-900 */
+}
+
+/* Lock the site to a white background (even if OS is in dark mode) */
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100%;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Prevent dark-mode media query from flipping colors */
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* Footer link hover */
+footer a:hover {
+  text-decoration: underline;
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.25), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.2), transparent 60%),
+    linear-gradient(135deg, #0f172a, #0b1120);
+  background-size: 200% 200%;
+  animation: heroGradient 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Reserve space above the fixed mobile action bar so content never hides behind it. */
+.mobile-actionbar-spacer {
+  height: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-actionbar {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

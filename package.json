@@ -1,0 +1,48 @@
+{
+  "name": "grihfix-web",
+  "version": "0.1.0",
+  "private": true,
+  "prisma": {
+    "seed:mongo": "node --loader ts-node/esm ./scripts/seed.mjs"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --no-lint",
+    "start": "next start",
+    "seed:mongo": "tsx scripts/seed.ts"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.31.9",
+    "bcryptjs": "^3.0.2",
+    "framer-motion": "^12.23.12",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.542.0",
+    "mongoose": "^8.18.1",
+    "next": "^15.5.2",
+    "nodemailer": "^7.0.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-hot-toast": "^2.6.0",
+    "react-leaflet": "^5.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/dotenv": "^6.1.1",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^20",
+    "@types/nodemailer": "^7.0.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.2",
+    "eslint": "^9.35.0",
+    "eslint-config-next": "^15.5.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
