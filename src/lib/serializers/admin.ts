@@ -17,11 +17,27 @@ export type AdminSerializableBooking = {
   createdAt: string;
 };
 
-type MongoBooking = IBooking & { _id: { toString(): string } };
-type SerializedInput = MongoBooking | (IBooking & { id: string });
+/** Plain booking shape from `.lean()` or pre-serialized records — not a Mongoose Document. */
+type SerializedInput = {
+  _id?: { toString(): string };
+  id?: string;
+  name: string;
+  phone: string;
+  email?: string | null;
+  serviceName: string;
+  serviceSlug: string;
+  status: IBooking["status"];
+  trackingCode?: string | null;
+  assignedStaffName?: string | null;
+  assignedStaffPhone?: string | null;
+  internalNotes?: string | null;
+  scheduledDate?: Date | null;
+  city?: string | null;
+  createdAt: Date | string;
+};
 
-function hasMongoId(booking: SerializedInput): booking is MongoBooking {
-  return "_id" in booking && typeof booking._id?.toString === "function";
+function hasMongoId(booking: SerializedInput): booking is SerializedInput & { _id: { toString(): string } } {
+  return "_id" in booking && booking._id != null && typeof booking._id.toString === "function";
 }
 
 export function serializeAdminBooking(booking: SerializedInput): AdminSerializableBooking {
@@ -29,7 +45,7 @@ export function serializeAdminBooking(booking: SerializedInput): AdminSerializab
     booking.createdAt instanceof Date ? booking.createdAt.toISOString() : new Date(booking.createdAt).toISOString();
 
   return {
-    id: hasMongoId(booking) ? booking._id.toString() : booking.id,
+    id: hasMongoId(booking) ? booking._id.toString() : (booking.id ?? ""),
     name: booking.name,
     phone: booking.phone,
     email: booking.email ?? null,

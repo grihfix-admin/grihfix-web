@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { BOOKING_STATUS_VALUES, type BookingStatus } from "@/constants/bookings";
 import { connectToDatabase } from "@/lib/mongodb";
-import Booking, { type IBooking } from "@/models/Booking";
+import Booking from "@/models/Booking";
 import { serializeAdminBooking } from "@/lib/serializers/admin";
 
 const STATUS_SET = new Set(BOOKING_STATUS_VALUES as readonly BookingStatus[]);
@@ -31,9 +31,7 @@ export async function GET(request: NextRequest) {
     const bookings = await Booking.find(query).sort({ createdAt: -1 }).limit(200).lean();
     return NextResponse.json({
       success: true,
-      bookings: bookings.map((booking) =>
-        serializeAdminBooking(booking as IBooking & { _id: { toString(): string } })
-      ),
+      bookings: bookings.map((booking) => serializeAdminBooking(booking)),
     });
   } catch (error) {
     console.error("[Admin API] Failed to list bookings:", error);

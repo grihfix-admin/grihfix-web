@@ -6,7 +6,7 @@ import { AdminBookingsTable } from "@/components/admin/AdminBookingsTable";
 import { Button } from "@/components/ui/Button";
 import { connectToDatabase } from "@/lib/mongodb";
 import { serializeAdminBooking } from "@/lib/serializers/admin";
-import Booking, { type IBooking } from "@/models/Booking";
+import Booking from "@/models/Booking";
 
 type PageProps = {
   searchParams?: Promise<{ status?: string; search?: string }>;
@@ -41,9 +41,7 @@ export default async function AdminDashboard({ searchParams }: PageProps) {
 
   const bookings = await Booking.find(query).sort({ createdAt: -1 }).limit(200).lean();
 
-  const adminBookings = bookings.map((booking) =>
-    serializeAdminBooking(booking as IBooking & { _id: { toString(): string } })
-  );
+  const adminBookings = bookings.map((booking) => serializeAdminBooking(booking));
 
   return (
     <div className="space-y-8">

@@ -30,7 +30,7 @@ export async function GET(
     }
     return NextResponse.json({
       success: true,
-      booking: serializeAdminBooking(booking as IBooking & { _id: { toString(): string } }),
+      booking: serializeAdminBooking(booking),
     });
   } catch (error) {
     console.error("[Admin API] Failed to fetch booking:", error);
@@ -90,7 +90,7 @@ export async function PATCH(
 
     return NextResponse.json({
       success: true,
-      booking: serializeAdminBooking(booking as IBooking & { _id: { toString(): string } }),
+      booking: serializeAdminBooking(booking),
     });
   } catch (error) {
     console.error("[Admin API] Failed to update booking:", error);
