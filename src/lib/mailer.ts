@@ -77,7 +77,7 @@ async function sendMail({
 export async function sendBookingNotification(booking: Partial<IBooking>) {
   console.log(
     "[Mailer] sendBookingNotification called with booking id:",
-    booking?._id || (booking as any)?.id,
+    booking?._id || (booking as { id?: string })?.id,
     "service:",
     booking?.serviceName
   );

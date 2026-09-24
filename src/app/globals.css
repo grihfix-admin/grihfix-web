@@ -3,16 +3,32 @@
 /* GrihFix v2 design tokens — warm "saffron" accent layered on the existing
    trust-blue palette, plus Devanagari-friendly type for the Hindi toggle. */
 @theme {
-  --color-saffron-50: #fff8ee;
-  --color-saffron-100: #ffecc7;
-  --color-saffron-200: #ffd98f;
-  --color-saffron-300: #ffc157;
-  --color-saffron-400: #ffa733;
-  --color-saffron-500: #ff9130;
-  --color-saffron-600: #f2760e;
-  --color-saffron-700: #c75a08;
-  --color-saffron-800: #9c4308;
-  --color-saffron-900: #7c370c;
+  /* Brand blue — anchored at 600 = exact logo blue #1D75BD */
+  --color-blue-50: #f4f8fc;
+  --color-blue-100: #e4eef7;
+  --color-blue-200: #c4dbee;
+  --color-blue-300: #a0c5e3;
+  --color-blue-400: #73a9d6;
+  --color-blue-500: #418bc8;
+  --color-blue-600: #1d75bd;
+  --color-blue-700: #19629e;
+  --color-blue-800: #165182;
+  --color-blue-900: #124066;
+  --color-blue-950: #0f2c47;
+
+  /* Brand red (used as the "accent" scale for CTAs, badges, highlights) —
+     anchored at 500 = exact logo red #EF4136 */
+  --color-accent-50: #fef6f5;
+  --color-accent-100: #fde8e7;
+  --color-accent-200: #fbcecb;
+  --color-accent-300: #f8afab;
+  --color-accent-400: #f47a72;
+  --color-accent-500: #ef4136;
+  --color-accent-600: #ca3830;
+  --color-accent-700: #aa302b;
+  --color-accent-800: #852825;
+  --color-accent-900: #64201f;
+  --color-accent-950: #44181a;
 
   --font-sans: "Hind", "Noto Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Poppins", "Hind", ui-sans-serif, system-ui, sans-serif;
@@ -52,8 +68,8 @@ footer a:hover {
 }
 
 .hero-gradient {
-  background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.25), transparent 55%),
-    radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.2), transparent 60%),
+  background: radial-gradient(circle at 20% 20%, rgba(29, 117, 189, 0.35), transparent 55%),
+    radial-gradient(circle at 85% 5%, rgba(239, 65, 54, 0.18), transparent 55%),
     linear-gradient(135deg, #0f172a, #0b1120);
   background-size: 200% 200%;
   animation: heroGradient 18s ease-in-out infinite alternate;

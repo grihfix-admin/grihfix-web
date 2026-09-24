@@ -21,7 +21,7 @@ export function TrustStrip() {
       <Container className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-4 text-center">
         {items.map((item) => (
           <div key={item.labelKey} className="flex items-center gap-2 text-sm font-medium text-slate-600">
-            <item.icon className="h-4 w-4 text-saffron-600" />
+            <item.icon className="h-4 w-4 text-accent-600" />
             <span>{t(item.labelKey)}</span>
           </div>
         ))}

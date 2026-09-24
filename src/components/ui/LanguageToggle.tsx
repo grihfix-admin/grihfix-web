@@ -31,7 +31,7 @@ export function LanguageToggle({ className, variant = "dark" }: LanguageTogglePr
         className={cn(
           "rounded-full px-3 py-1 transition",
           lang === "en"
-            ? "bg-saffron-500 text-white shadow-sm"
+            ? "bg-accent-500 text-white shadow-sm"
             : isLight
               ? "text-white/80 hover:text-white"
               : "text-slate-500 hover:text-slate-700"
@@ -46,7 +46,7 @@ export function LanguageToggle({ className, variant = "dark" }: LanguageTogglePr
         className={cn(
           "rounded-full px-3 py-1 transition",
           lang === "hi"
-            ? "bg-saffron-500 text-white shadow-sm"
+            ? "bg-accent-500 text-white shadow-sm"
             : isLight
               ? "text-white/80 hover:text-white"
               : "text-slate-500 hover:text-slate-700"

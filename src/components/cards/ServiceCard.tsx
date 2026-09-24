@@ -57,7 +57,7 @@ export function ServiceCard({
   return (
     <div
       className={cn(
-        "group flex h-full flex-col rounded-3xl border border-slate-100/80 bg-white/90 p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-saffron-200/70 hover:bg-white hover:shadow-2xl",
+        "group flex h-full flex-col rounded-3xl border border-slate-100/80 bg-white/90 p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent-200/70 hover:bg-white hover:shadow-2xl",
         className
       )}
     >
@@ -74,7 +74,7 @@ export function ServiceCard({
           )}
         </div>
         {displayHighlight && (
-          <span className="ml-auto hidden rounded-full bg-saffron-50 px-3 py-1 text-xs font-semibold uppercase text-saffron-700 md:inline-flex">
+          <span className="ml-auto hidden rounded-full bg-accent-50 px-3 py-1 text-xs font-semibold uppercase text-accent-700 md:inline-flex">
             {displayHighlight}
           </span>
         )}
@@ -99,7 +99,7 @@ export function ServiceCard({
       </ul>
 
       {displayHighlight && (
-        <p className="mt-3 text-sm font-semibold text-saffron-700 md:hidden">{displayHighlight}</p>
+        <p className="mt-3 text-sm font-semibold text-accent-700 md:hidden">{displayHighlight}</p>
       )}
 
       <div className="mt-auto space-y-2 pt-6">

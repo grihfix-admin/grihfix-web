@@ -2,6 +2,8 @@
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { PageHero } from "@/components/ui/PageHero";
+import { Reveal, RevealGroup } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { ServiceCard } from "@/components/cards/ServiceCard";
 import { services, type ServiceCategory } from "@/content/services";
@@ -53,34 +55,27 @@ export function ServicesContent() {
 
   return (
     <div className="space-y-20 pb-24">
-      <section className="hero-gradient relative overflow-hidden text-white">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-900/10 via-slate-900/50 to-slate-950/90" />
-        <Container className="relative py-16">
-          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-            <span className="rounded-full border border-white/40 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-blue-100">
-              {t("services.eyebrow")}
-            </span>
-            <h1 className="font-display mt-6 text-4xl font-semibold leading-tight sm:text-5xl">{t("services.pageTitle")}</h1>
-            <p className="mt-4 text-base text-white/80">{t("services.pageSubtitle")}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/contact" size="lg" variant="secondary" className="text-slate-900">
-                {t("services.buildPlan")}
-              </Button>
-              <Button href="tel:+919709870726" size="lg" variant="ghost" className="text-white">
-                {t("common.callUs")}
-              </Button>
-            </div>
-          </div>
-          <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
+      <PageHero eyebrow={t("services.eyebrow")} title={t("services.pageTitle")} description={t("services.pageSubtitle")}>
+        <Button href="/contact" size="lg" variant="secondary" className="text-slate-900">
+          {t("services.buildPlan")}
+        </Button>
+        <Button href="tel:+919709870726" size="lg" variant="ghost" className="text-white">
+          {t("common.callUs")}
+        </Button>
+      </PageHero>
+
+      <Container className="-mt-12">
+        <Reveal>
+          <div className="grid gap-4 rounded-3xl border border-slate-100 bg-white p-4 shadow-lg sm:grid-cols-3">
             {serviceStats.map((stat) => (
-              <div key={stat.label} className="rounded-2xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur">
-                <p className="text-xs uppercase tracking-[0.4em] text-blue-100">{stat.label}</p>
-                <p className="mt-2 text-xl font-semibold">{stat.value}</p>
+              <div key={stat.label} className="rounded-2xl bg-slate-50 p-4 text-center">
+                <p className="text-xs uppercase tracking-[0.3em] text-blue-600">{stat.label}</p>
+                <p className="mt-2 text-xl font-semibold text-slate-900">{stat.value}</p>
               </div>
             ))}
           </div>
-        </Container>
-      </section>
+        </Reveal>
+      </Container>
 
       <Section
         eyebrow={t("services.browseCategory")}
@@ -92,7 +87,7 @@ export function ServicesContent() {
             <a
               key={category}
               href={`#${categoryAnchor(category)}`}
-              className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-saffron-300 hover:text-slate-900"
+              className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-accent-300 hover:text-slate-900"
             >
               {t(`category.${category}` as DictionaryKey)}
             </a>
@@ -114,11 +109,11 @@ export function ServicesContent() {
             title={t(`category.${category}` as DictionaryKey)}
             description={description}
           >
-            <div className="grid gap-6 lg:grid-cols-2">
+            <RevealGroup className="grid gap-6 lg:grid-cols-2">
               {categoryServices.map((service) => (
                 <ServiceCard key={service.id} {...service} actionLabel={t("common.bookNow")} />
               ))}
-            </div>
+            </RevealGroup>
           </Section>
         );
       })}

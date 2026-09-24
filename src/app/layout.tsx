@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/grihfix-logo.png",
-        width: 800,
-        height: 418,
+        width: 803,
+        height: 462,
         alt: "GrihFix home services",
       },
     ],
@@ -95,7 +95,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Providers>
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
       </body>

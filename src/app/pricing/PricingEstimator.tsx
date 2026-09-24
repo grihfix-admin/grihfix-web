@@ -363,7 +363,7 @@ const pricingStats = [
 ] as const;
 
 export function PricingEstimator() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const isHi = lang === "hi";
   const [serviceId, setServiceId] = useState(DEFAULT_SERVICE_ID);
   const [variantId, setVariantId] = useState(DEFAULT_VARIANT_ID);
@@ -384,30 +384,21 @@ export function PricingEstimator() {
   const quantityEnabled = QUANTITY_SERVICES.has(serviceId);
   const quantityValue = quantityEnabled ? Math.max(1, Number(quantityInput) || 1) : 1;
 
-  const calculationInput: CalculationInput = {
-    serviceId,
-    variantId,
-    variantLabel: selectedVariant.label,
-    variantBase: selectedVariant.base,
-    quantity: quantityValue,
-    areaSqft,
-    areaRange,
-    couponCode,
-  };
-
-  const calculation = useMemo(
-    () => calculateLine(calculationInput),
-    [
+  const calculationInput: CalculationInput = useMemo(
+    () => ({
       serviceId,
       variantId,
-      selectedVariant.label,
-      selectedVariant.base,
-      quantityValue,
+      variantLabel: selectedVariant.label,
+      variantBase: selectedVariant.base,
+      quantity: quantityValue,
       areaSqft,
       areaRange,
       couponCode,
-    ]
+    }),
+    [serviceId, variantId, selectedVariant.label, selectedVariant.base, quantityValue, areaSqft, areaRange, couponCode]
   );
+
+  const calculation = useMemo(() => calculateLine(calculationInput), [calculationInput]);
 
   const shareHref = `/contact?service=${encodeURIComponent(
     selectedService.slug
@@ -461,25 +452,23 @@ export function PricingEstimator() {
     <div className="space-y-20 pb-24">
       <section className="hero-gradient relative overflow-hidden text-white">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-900/10 via-slate-900/40 to-slate-950/90" />
-        <div className="pointer-events-none absolute -left-10 top-10 h-56 w-56 rounded-full bg-sky-400/30 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 translate-y-1/3 rounded-full bg-blue-500/30 blur-3xl" />
+        <div className="pointer-events-none absolute -left-10 top-10 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 translate-y-1/3 rounded-full bg-accent-500/20 blur-3xl" />
         <Container className="relative grid gap-10 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-6 text-center lg:text-left">
             <span className="inline-flex items-center justify-center rounded-full border border-white/30 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-blue-100">
-              Transparent pricing
+              {t("pricingpage.eyebrow")}
             </span>
             <div className="space-y-4">
-              <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">Simple estimates, zero surprise add-ons.</h1>
-              <p className="text-base text-white/80">
-                Every Darbhanga home is unique. Use our estimator to see launch pricing (30% OFF) and lock your quote for 72 hours while we line up the right crew.
-              </p>
+              <h1 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">{t("pricingpage.title")}</h1>
+              <p className="text-base text-white/80">{t("pricingpage.subtitle")}</p>
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
               <Button href="#estimate" size="lg" variant="secondary" className="w-full justify-center text-slate-900 sm:w-auto">
-                Get Free Estimate
+                {t("common.getEstimate")}
               </Button>
               <Button href="tel:+919709870726" size="lg" variant="ghost" className="w-full justify-center text-white sm:w-auto">
-                Call +91 97098 70726
+                {t("common.callUs")}
               </Button>
             </div>
             <div className="grid gap-3 pt-4 text-left sm:grid-cols-3">
@@ -681,7 +670,7 @@ export function PricingEstimator() {
                 )}
               </div>
               <div className="mt-6 pt-4 border-t-2 border-blue-200">
-                <p className="text-xs uppercase tracking-[0.2em] text-blue-600 font-semibold mb-2">Today's Price</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-600 font-semibold mb-2">Today&rsquo;s Price</p>
                 <p className="text-4xl font-bold text-slate-900">₹{calculation.finalEstimate.toLocaleString()}</p>
               </div>
               <p className="mt-4 text-xs text-slate-500">
@@ -756,7 +745,7 @@ export function PricingEstimator() {
                             <span>₹{line.unitMrp.toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Today's price (30% off)</span>
+                            <span>Today&rsquo;s price (30% off)</span>
                             <span>₹{line.unitFinal.toLocaleString()}</span>
                           </div>
                           {line.couponSavings > 0 && (

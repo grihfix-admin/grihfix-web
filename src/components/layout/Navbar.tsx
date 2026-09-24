@@ -43,18 +43,15 @@ export function Navbar() {
     >
       <Container className="flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center" aria-label="GrihFix home">
             <Image
               src="/grihfix-logo.png"
-              alt="GrihFix logo"
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-full object-contain"
+              alt="GrihFix — Your home, perfectly fixed"
+              width={280}
+              height={161}
+              priority
+              className="h-11 w-auto object-contain sm:h-12"
             />
-            <span className="font-display text-lg font-extrabold tracking-tight">
-              <span className="text-slate-900">Grih</span>
-              <span className="text-blue-600">Fix</span>
-            </span>
           </Link>
         </div>
 
@@ -75,7 +72,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           <LanguageToggle />
-          <Button href="tel:+919709870726" variant="secondary" size="md" className="gap-2 border-saffron-200 bg-saffron-50 text-saffron-700 hover:bg-saffron-100">
+          <Button href="tel:+919709870726" variant="secondary" size="md" className="gap-2 border-accent-200 bg-accent-50 text-accent-700 hover:bg-accent-100">
             <PhoneCall size={16} />
             {t("nav.callNow")}
           </Button>
@@ -136,7 +133,7 @@ export function Navbar() {
             </Link>
           ))}
           <div className="flex flex-col gap-3 pb-2 pt-2">
-            <Button href="tel:+919709870726" variant="secondary" className="w-full justify-center border-saffron-200 bg-saffron-50 text-saffron-700">
+            <Button href="tel:+919709870726" variant="secondary" className="w-full justify-center border-accent-200 bg-accent-50 text-accent-700">
               {t("common.callUs")}
             </Button>
             <Button href="/contact" className="w-full justify-center">

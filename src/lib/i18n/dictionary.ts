@@ -151,6 +151,66 @@ export const dictionary = {
 
   // ---------- Language toggle ----------
   "lang.toggleLabel": { en: "भाषा", hi: "Language" },
+
+  // ---------- About page ----------
+  "about.eyebrow": { en: "About GrihFix", hi: "GrihFix के बारे में" },
+  "about.title": { en: "Born in Darbhanga, for Darbhanga homes.", hi: "दरभंगा में जन्मा, दरभंगा के घरों के लिए।" },
+  "about.subtitle": {
+    en: "We started GrihFix after struggling to find reliable, hygienic service partners for our own families. Today we're a small-but-mighty crew serving cleaning, tank, plumbing and repair needs across the city — with a smile.",
+    hi: "अपने ही परिवार के लिए भरोसेमंद सेवा साथी न मिलने की परेशानी से GrihFix की शुरुआत हुई। आज हम एक छोटी मगर मज़बूत टीम हैं जो पूरे शहर में सफाई, टंकी, प्लंबिंग और मरम्मत सेवाएं मुस्कुराते हुए देती है।",
+  },
+  "about.ctaTalk": { en: "Talk to our team", hi: "हमारी टीम से बात करें" },
+  "about.ctaCall": { en: "Call us directly", hi: "सीधे कॉल करें" },
+  "about.statJobs": { en: "2,500+ jobs completed", hi: "2,500+ सेवाएं पूरी" },
+  "about.statWards": { en: "Across 40+ wards of Darbhanga", hi: "दरभंगा के 40+ वार्डों में" },
+  "about.storyEyebrow": { en: "Our story", hi: "हमारी कहानी" },
+  "about.storyTitle": { en: "Neighbourhood trust meets pro-grade systems", hi: "मोहल्ले का भरोसा, पेशेवर तरीके के साथ" },
+  "about.storyDesc": {
+    en: "We blend modern scheduling tools with the warmth of local technicians who understand how Darbhanga households operate.",
+    hi: "आधुनिक शेड्यूलिंग टूल्स को स्थानीय तकनीशियनों की आत्मीयता के साथ जोड़ते हैं, जो दरभंगा के घरों को अच्छे से समझते हैं।",
+  },
+  "about.card1Title": { en: "Darbhanga roots", hi: "दरभंगा की जड़ें" },
+  "about.card1Desc": {
+    en: "Started by siblings who grew up near Tower Chowk, GrihFix focuses only on Darbhanga so we can guarantee punctuality, quality and consistency.",
+    hi: "टावर चौक के पास पले-बढ़े भाई-बहनों ने शुरू किया — GrihFix सिर्फ़ दरभंगा पर फोकस करता है ताकि समय, गुणवत्ता और निरंतरता की गारंटी दे सकें।",
+  },
+  "about.card2Title": { en: "Process-driven delivery", hi: "व्यवस्थित तरीके से सेवा" },
+  "about.card2Desc": {
+    en: "Every job has a digital checklist, before/after photos and customer feedback. That's how we maintain a 4.9/5 satisfaction score.",
+    hi: "हर काम की डिजिटल चेकलिस्ट, पहले/बाद की फ़ोटो और ग्राहक फीडबैक होता है। इसी से हम 4.9/5 संतुष्टि स्कोर बनाए रखते हैं।",
+  },
+  "about.promisesEyebrow": { en: "Our promises", hi: "हमारे वादे" },
+  "about.promisesTitle": { en: "What you can expect every single time", hi: "हर बार आप क्या उम्मीद कर सकते हैं" },
+  "about.promisesDesc": { en: "Yahi toh farq hai — reliability that feels personal.", hi: "यही तो फ़र्क़ है — भरोसा जो अपनापन लिए हो।" },
+  "about.hiringEyebrow": { en: "Careers", hi: "करियर" },
+  "about.hiringTitle": { en: "Work with GrihFix", hi: "GrihFix के साथ काम करें" },
+  "about.hiringDesc": {
+    en: "If you're a skilled cleaner, plumber, electrician or handyman from Darbhanga and nearby areas, join our verified partner network.",
+    hi: "अगर आप दरभंगा या आस-पास के कुशल सफाईकर्मी, प्लंबर, इलेक्ट्रीशियन या हैंडीमैन हैं, तो हमारे सत्यापित पार्टनर नेटवर्क से जुड़ें।",
+  },
+  "about.hiringHeadline": { en: "We're hiring service partners", hi: "हम सेवा पार्टनर की तलाश में हैं" },
+  "about.hiringSub": {
+    en: "Training + uniforms provided. Weekly payouts. Insurance coverage on the way!",
+    hi: "प्रशिक्षण और यूनिफ़ॉर्म दी जाती है। साप्ताहिक भुगतान। बीमा कवरेज जल्द आ रहा है!",
+  },
+  "about.hiringCta": { en: "Apply via WhatsApp", hi: "व्हाट्सएप पर आवेदन करें" },
+
+  // ---------- Contact page ----------
+  "contact.eyebrow": { en: "Get in touch", hi: "संपर्क करें" },
+  "contact.title": { en: "Let's fix it — tell us what's up", hi: "चलिए ठीक करते हैं — अपनी ज़रूरत बताएं" },
+  "contact.subtitle": {
+    en: "Share your service, address and a good time to visit. Our team confirms on call or WhatsApp within 10 minutes during working hours.",
+    hi: "अपनी सर्विस, पता और सही समय बताएं। हमारी टीम काम के घंटों में 10 मिनट में कॉल या व्हाट्सएप पर कन्फर्म करेगी।",
+  },
+  "contact.formTitle": { en: "Tell us about your requirement", hi: "अपनी ज़रूरत हमें बताएं" },
+
+  // ---------- Pricing page ----------
+  "pricingpage.eyebrow": { en: "Transparent pricing", hi: "पारदर्शी कीमत" },
+  "pricingpage.title": { en: "Fair prices, no surprise bills", hi: "उचित कीमत, कोई छिपा बिल नहीं" },
+  "pricingpage.subtitle": {
+    en: "Use the calculator below for an instant estimate, or browse our starting packages by service.",
+    hi: "तुरंत अनुमान के लिए नीचे कैलकुलेटर उपयोग करें, या सर्विस अनुसार शुरुआती पैकेज देखें।",
+  },
 } as const;
 
 export type DictionaryKey = keyof typeof dictionary;

@@ -31,7 +31,7 @@ export function MobileActionBar() {
       </a>
       <Link
         href="/contact"
-        className="flex flex-1 flex-col items-center justify-center gap-0.5 bg-saffron-500 py-2.5 text-xs font-semibold text-white active:bg-saffron-600"
+        className="flex flex-1 flex-col items-center justify-center gap-0.5 bg-accent-500 py-2.5 text-xs font-semibold text-white active:bg-accent-600"
       >
         <CalendarCheck className="h-5 w-5" />
         {t("nav.bookService")}

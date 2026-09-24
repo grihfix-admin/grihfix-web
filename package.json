@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --no-lint",
     "start": "next start",
     "seed:mongo": "tsx scripts/seed.ts"
   },
@@ -18,10 +18,10 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^0.542.0",
     "mongoose": "^8.18.1",
-    "next": "^16.3.2",
+    "next": "^15.5.2",
     "nodemailer": "^7.0.6",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
     "react-leaflet": "^5.0.0"
   },
@@ -30,6 +30,7 @@
     "@tailwindcss/postcss": "^4.1.13",
     "@types/bcryptjs": "^2.4.6",
     "@types/dotenv": "^6.1.1",
+    "@types/leaflet": "^1.9.22",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.1",

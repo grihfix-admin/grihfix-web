@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Instagram, Mail, Phone, Send, ShieldCheck, Twitter, UsersRound } from "lucide-react";
 
@@ -32,7 +33,7 @@ export function Footer() {
     <footer className="bg-slate-950 text-white">
       <Container className="space-y-12 py-16">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-center shadow-lg backdrop-blur">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-saffron-300">{t("footer.partnerEyebrow")}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-accent-300">{t("footer.partnerEyebrow")}</p>
           <h2 className="font-display mt-3 text-2xl font-semibold text-white">{t("footer.partnerTitle")}</h2>
           <p className="mt-2 text-sm text-white/80">{t("footer.partnerDesc")}</p>
           <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -47,7 +48,7 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-xs text-white/70 sm:justify-between">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-saffron-300" />
+            <ShieldCheck className="h-4 w-4 text-accent-300" />
             <span>{t("common.verified")}</span>
           </div>
           <div className="flex items-center gap-2">
@@ -60,7 +61,13 @@ export function Footer() {
 
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <p className="font-display text-xl font-semibold">{t("footer.about")}</p>
+            <Image
+              src="/grihfix-logo.png"
+              alt="GrihFix — Your home, perfectly fixed"
+              width={280}
+              height={161}
+              className="h-11 w-auto object-contain"
+            />
             <p className="text-sm text-white/70">{t("footer.aboutDesc")}</p>
             <p className="text-xs text-white/50">GSTIN: 10ABCDE1234Z1Z (Placeholder)</p>
           </div>

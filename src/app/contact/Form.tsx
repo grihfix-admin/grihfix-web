@@ -4,8 +4,9 @@ import { ChangeEvent, FormEvent, Suspense, useEffect, useMemo, useState } from "
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
+import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { toast } from "react-hot-toast";
 import {
   calculateHomeCleaningPrice,
@@ -87,6 +88,7 @@ const timeSlots = [
 ];
 
 function ContactFormInner() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState(defaultForm);
   const searchParams = useSearchParams();
   const [estimateNote, setEstimateNote] = useState<string | null>(null);
@@ -369,25 +371,16 @@ function ContactFormInner() {
 
   return (
     <div className="space-y-16 pb-20">
-      <section className="bg-slate-900 text-white">
-        <Container className="py-16 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.5em] text-blue-200">Contact GrihFix</p>
-          <h1 className="mt-4 text-4xl font-bold">Let’s plan your next service.</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-white/80">
-            Fill the form or ping us on WhatsApp. We respond within 10 minutes during working hours (9am – 8pm).
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button href="tel:+919709870726" size="lg" variant="secondary" className="text-slate-900">
-              Call us directly
-            </Button>
-            <Button href="https://wa.me/919709870726" size="lg" variant="ghost" className="text-white">
-              Chat on WhatsApp
-            </Button>
-          </div>
-        </Container>
-      </section>
+      <PageHero eyebrow={t("contact.eyebrow")} title={t("contact.title")} description={t("contact.subtitle")}>
+        <Button href="tel:+919709870726" size="lg" variant="secondary" className="text-slate-900">
+          {t("common.callUs")}
+        </Button>
+        <Button href="https://wa.me/919709870726" size="lg" variant="ghost" className="text-white">
+          {t("common.chatWhatsapp")}
+        </Button>
+      </PageHero>
 
-      <Section title="Tell us about your requirement">
+      <Section title={t("contact.formTitle")}>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] xl:gap-12">
           <form onSubmit={handleSubmit} className="space-y-6 rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
             {submitState === "success" && successDetails && (
@@ -632,7 +625,7 @@ function ContactFormInner() {
                       </div>
                       <div className="pt-2 border-t border-blue-100">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-semibold text-slate-700">Today's Price</span>
+                          <span className="text-sm font-semibold text-slate-700">Today&rsquo;s Price</span>
                           <span className="text-2xl font-bold text-slate-900">₹{liveEstimate.finalPrice.toLocaleString()}</span>
                         </div>
                       </div>
@@ -690,7 +683,7 @@ function ContactFormInner() {
                       </div>
                       <div className="pt-2 border-t border-blue-100">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-semibold text-slate-700">Today's Price</span>
+                          <span className="text-sm font-semibold text-slate-700">Today&rsquo;s Price</span>
                           <span className="text-2xl font-bold text-slate-900">₹{liveEstimate.finalPrice.toLocaleString()}</span>
                         </div>
                       </div>

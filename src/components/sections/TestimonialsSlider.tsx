@@ -9,7 +9,7 @@ export function TestimonialsSlider() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const isPausedRef = useRef(false);
 
-  const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], [testimonials]);
+  const duplicatedTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
 
   useEffect(() => {
     const slider = sliderRef.current;

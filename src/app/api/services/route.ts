@@ -13,7 +13,7 @@ export async function GET() {
 
     // ✅ Return structured response
     return NextResponse.json({ services });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("❌ Error fetching services:", err);
     return NextResponse.json(
       { error: "Failed to fetch services" },

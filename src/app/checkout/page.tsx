@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
+import type * as L from "leaflet";
 import toast from "react-hot-toast"; // 👈 add toast
 
 const Map = dynamic(() => import("react-leaflet").then(mod => mod.MapContainer), { ssr: false });
@@ -18,11 +19,10 @@ interface Service {
   discountInr: number | null;
 }
 
-export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
+function CheckoutPageInner() {
   const router = useRouter();
-  const resolvedParams = searchParams && typeof searchParams.then === "function" ? undefined : (searchParams as Record<string, string | string[] | undefined> | undefined);
-  const serviceParam = resolvedParams?.service;
-  const serviceSlug = Array.isArray(serviceParam) ? serviceParam[0] : serviceParam ?? null;
+  const searchParams = useSearchParams();
+  const serviceSlug = searchParams.get("service");
 
   const [service, setService] = useState<Service | null>(null);
   const [coupon, setCoupon] = useState("");
@@ -225,25 +225,23 @@ export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
             {/* Map */}
             <div className="h-64 mt-4">
               <Map
-                {...({
-                  center: [coords.lat, coords.lng] as [number, number],
-                  zoom: 14,
-                  style: { height: "100%", width: "100%" },
-                  whenReady: () => reverseGeocode(coords.lat, coords.lng),
-                } as any)}
+                center={[coords.lat, coords.lng] as [number, number]}
+                zoom={14}
+                style={{ height: "100%", width: "100%" }}
+                whenReady={() => reverseGeocode(coords.lat, coords.lng)}
               >
                 <TileLayer
-                  // @ts-expect-error leaflet types are strict
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker
-                  // @ts-expect-error draggable missing in types
                   draggable={true}
                   position={[coords.lat, coords.lng] as [number, number]}
                   eventHandlers={{
-                    dragend: (e: any) => {
-                      const latlng = e.target.getLatLng();
+                    dragend: (e: L.DragEndEvent) => {
+                      // Leaflet's own types leave `target` as `any`; narrow it
+                      // to Marker locally since that's what fired this event.
+                      const latlng = (e.target as L.Marker).getLatLng();
                       setCoords({ lat: latlng.lat, lng: latlng.lng });
                       reverseGeocode(latlng.lat, latlng.lng);
                     },
@@ -262,5 +260,13 @@ export default function CheckoutPage({ searchParams }: { searchParams?: any }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<div className="py-12 text-center text-slate-500">Loading checkout…</div>}>
+      <CheckoutPageInner />
+    </Suspense>
   );
 }

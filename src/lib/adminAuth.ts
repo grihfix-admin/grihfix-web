@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-import { ADMIN_SESSION_COOKIE, ADMIN_SESSION_MAX_AGE_SECONDS } from "@/constants/auth";
+import { ADMIN_SESSION_MAX_AGE_SECONDS } from "@/constants/auth";
 import { connectToDatabase } from "@/lib/mongodb";
 import AdminOtp, { IAdminOtp } from "@/models/AdminOtp";
 import AdminSession, { IAdminSession } from "@/models/AdminSession";
